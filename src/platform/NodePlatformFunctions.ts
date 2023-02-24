@@ -5,12 +5,14 @@ const StripeError = _Error.StripeError;
 import utils = require('../utils');
 import PlatformFunctions = require('./PlatformFunctions');
 import http = require('http');
+import NodeCryptoProvider = require('../crypto/NodeCryptoProvider');
+import CryptoProvider = require('../crypto/CryptoProvider');
+
+// These require() imports don't detect static properties on HttpClient
 import _HttpClient = require('../net/HttpClient');
 const HttpClient = _HttpClient.HttpClient;
 import _NodeHttpClient = require('../net/NodeHttpClient');
 const NodeHttpClient = _NodeHttpClient.NodeHttpClient;
-import NodeCryptoProvider = require('../crypto/NodeCryptoProvider');
-import CryptoProvider = require('../crypto/CryptoProvider');
 
 class StreamProcessingError extends StripeError {}
 
@@ -129,13 +131,11 @@ class NodePlatformFunctions extends PlatformFunctions {
 
   /** @override */
   createNodeHttpClient(agent: http.Agent | null): typeof HttpClient {
-    // @ts-ignore
     return new NodeHttpClient(agent);
   }
 
   /** @override */
   createDefaultHttpClient(): typeof HttpClient {
-    // @ts-ignore
     return new NodeHttpClient(null);
   }
 
