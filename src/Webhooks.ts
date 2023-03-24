@@ -331,7 +331,10 @@ export function createWebhooks(
           message:
             'Webhook payload must be provided as a string or a Buffer (https://nodejs.org/api/buffer.html) instance representing the _raw_ request body.' +
             'Payload was provided as a parsed JavaScript object instead. \n' +
-            'Signature verification is impossible without access to the original signed material. \n' +
+            'Usually this error means that your web server is parsing request bodies into objects automatically ' +
+            '(for example, body-parser middleware in Express) or the way you retrieve the request body forces it to be parsed ' +
+            '(for example, request.json() call in NextJS). \n'+
+            'You should disable automatic body parsing for webhook endpoint and retrieve the raw body as a string.' +
             'Learn more about webhook signing and explore webhook integration examples for various frameworks at ' +
             'https://github.com/stripe/stripe-node#webhook-signing',
         });
