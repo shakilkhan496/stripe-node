@@ -18,6 +18,7 @@ async function handler(request) {
 
   // First step is to verify the event. The .text() method must be used as the
   // verification relies on the raw request body rather than the parsed JSON.
+  //here text() method is not available , can you resolve please?
   const body = await request.text();
   let event;
   try {
